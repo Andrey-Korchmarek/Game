@@ -1,0 +1,28 @@
+game/
+├── main.py                # Точка входа
+├── engine/                # Ядро игры
+│   ├── __init__.py
+│   ├── game_loop.py       # Главный цикл игры
+│   ├── event_handler.py   # Обработка событий
+│   └── state_manager.py   # Управление состояниями игры
+├── scenes/                # Сцены/экраны игры
+│   ├── __init__.py
+│   ├── menu_scene.py      # Главное меню
+│   ├── game_scene.py      # Основная игровая сцена
+│   └── pause_scene.py     # Экран паузы
+├── entities/              # Игровые сущности
+│   ├── __init__.py
+│   ├── player.py          # Игрок
+│   ├── enemies.py         # Враги
+│   └── npc.py             # NPC
+├── assets/                # Ресурсы
+│   ├── sprites/           # Графика
+│   ├── sounds/            # Звуки
+│   └── fonts/             # Шрифты
+├── utils/                 # Вспомогательные модули
+│   ├── __init__.py
+│   ├── helpers.py         # Вспомогательные функции
+│   └── settings.py        # Настройки игры
+└── tests/                 # Тесты
+    ├── __init__.py
+    └── test_*.py          # Модульные тесты
