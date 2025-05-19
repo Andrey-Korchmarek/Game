@@ -1,7 +1,32 @@
 import numpy as np
-from itertools import permutations, product
-from enum import Enum
+from itertools import permutations, product, chain
 from ursina import *
+
+def setlike_permutations(a, b=0, c=0):
+    result = []
+    if a == b == c:
+        result.append((a, b, c))
+    elif b == c:
+        result.append((a, b, c))
+        result.append((b, a, c))
+        result.append((c, b, a))
+    elif a == b:
+        result.append((a, b, c))
+        result.append((a, c, b))
+        result.append((c, b, a))
+    elif a == c:
+        result.append((a, b, c))
+        result.append((b, a, c))
+        result.append((a, c, b))
+    else:
+        result.append((a, b, c))
+        result.append((a, c, b))
+        result.append((b, a, c))
+        result.append((b, c, a))
+        result.append((c, a, b))
+        result.append((c, b, a))
+    return result
+
 
 board_a = range(-4 * 42, 4 * 42, 4)
 board_b = range(2 - 4 * 42, 4 * 42 - 2, 4)
@@ -70,7 +95,10 @@ BoardSizes = dict(
             (6, 2, -10), (6, 2, -6), (6, 2, -2), (6, 2, 2), (6, 2, 6), (6, 2, 10), (6, 6, -6), (6, 6, -2), (6, 6, 2),
             (6, 6, 6), (6, 10, -2), (6, 10, 2), (10, -6, -2), (10, -6, 2), (10, -2, -6), (10, -2, -2), (10, -2, 2),
             (10, -2, 6), (10, 2, -6), (10, 2, -2), (10, 2, 2), (10, 2, 6), (10, 6, -2), (10, 6, 2)]
-    ,diff2 = [(4, 0, 0), (0, 4, 0), (0, 0, 4)] + [(-4, 0, 0), (0, -4, 0), (0, 0, -4)] + list(product((2, -2), repeat=3))
+    ,diff2 = setlike_permutations(4) + list(product((2, -2), repeat=3)) + setlike_permutations((-4))
+    ,diff3 = list(chain(
+        *[setlike_permutations(x, y, z) for x in (6, -6) for y in (2, -2) for z in (2, -2)],
+        *[]))
 )
 
 current_size = 0
@@ -125,6 +153,5 @@ def input(key):
 
 sizes = [0, 1, 2, 4, 6]
 
-for el in [i for i in BoardSizes['lvl3'] if i not in BoardSizes['lvl2']]:
-    print(el)
-print([i for i in BoardSizes['lvl3'] if i not in BoardSizes['lvl2']])
+
+print(list(chain(*[setlike_permutations(x, y, z) for x in (6, -6) for y in (2, -2) for z in (2, -2)])))
